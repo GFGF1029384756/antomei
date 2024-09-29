@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regalo Interattivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #b2e0f5; /* Celeste pastello */
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #gift {
+      width: 200px;
+      height: 200px;
+      margin: 50px auto;
+      background-image: url('https://static.vecteezy.com/system/resources/previews/023/286/047/original/giftbox-gold-ribbon-symbol-icon-png.png'); /* Immagine pacco regalo aperto */
+      background-size: cover;
+      cursor: pointer;
+      position: relative;
+    }
+
+    #messageBox {
+      display: none;
+      background-color: #ffd1dc; /* Rosa pastello iniziale */
+      border: 2px solid #ccc;
+      padding: 20px;
+      margin: 20px auto;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.5s ease;
+      position: absolute; /* Posizionamento sopra il regalo */
+      top: 350px; /* Distanza dal top, più in basso */
+      left: 50%; /* Centrare orizzontalmente */
+      transform: translateX(-50%); /* Centra perfettamente */
+    }
+
+    #choices {
+      margin-top: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .button:hover {
+      background-color: #218838;
+    }
+
+    #finalMessage {
+      display: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .pastel-pink {
+      background-color: #ffd1dc; /* Rosa pastello */
+    }
+
+    .pastel-lavender {
+      background-color: #e6e6fa; /* Lavanda pastello */
+    }
+
+    .pastel-green {
+      background-color: #d4edda; /* Verde pastello */
+    }
+
+    .pastel-yellow {
+      background-color: #fff3cd; /* Giallo pastello */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Clicca sul regalo per aprirlo</h1>
+
+  <div id="gift" onclick="showSurvey()"></div>
+
+  <div id="messageBox" class="pastel-pink">
+    <p>Ci scusi?</p>
+    <div id="choices">
+      <button class="button" onclick="showApology()">No</button>
+      <button class="button" onclick="showLove()">Si</button>
+    </div>
+  </div>
+
+  <div id="finalMessage"></div>
+
+  <script>
+    function showSurvey() {
+      cleanScreen(); // Pulisci la schermata prima di mostrare il sondaggio
+      document.getElementById("messageBox").style.display = "block"; // Mostra il messaggio
+      document.getElementById("finalMessage").style.display = "none"; // Nascondi il messaggio finale
+    }
+
+    function showApology() {
+      cleanScreen(); // Pulisci la schermata prima di mostrare il messaggio di scuse
+      var messageBox = document.getElementById("messageBox");
+      messageBox.className = "pastel-lavender"; 
+      messageBox.innerHTML = "<p>Ti prego scusaci, ti amiamo tanto!</p>" +
+        '<div id="choices">' +
+        '<button class="button" onclick="reset()">Torna all&#39;inizio</button>' +
+        '</div>';
+      messageBox.style.display = "block"; // Mostra il messaggio
+    }
+
+    function showLove() {
+      cleanScreen(); // Pulisci la schermata prima di mostrare il messaggio d’amore
+      var messageBox = document.getElementById("messageBox");
+      messageBox.className = "pastel-green"; 
+      messageBox.innerHTML = "<p>Ti amiamo tanto. Sei sempre bravissima con noi, non vogliamo che tu sia triste a causa nostra. Ci ami ancora?</p>" +
+        '<div id="choices">' +
+        '<button class="button" onclick="finalNo()">No</button>' +
+        '<button class="button" onclick="finalYes()">Si</button>' +
+        '</div>';
+      messageBox.style.display = "block"; // Mostra il messaggio
+    }
+
+    function finalNo() {
+      cleanScreen(); // Pulisci la schermata prima di mostrare il messaggio finale
+      var messageBox = document.getElementById("messageBox");
+      messageBox.className = "pastel-yellow"; 
+      messageBox.innerHTML = "<p>Dacci un&#39;altra possibilita&#39;!</p>" +
+        '<div id="choices">' +
+        '<button class="button" onclick="reset()">Torna all&#39;inizio</button>' +
+        '</div>';
+      messageBox.style.display = "block"; // Mostra il messaggio
+    }
+
+    function finalYes() {
+      document.getElementById("messageBox").style.display = "none"; // Nascondi il messaggio
+      document.getElementById("finalMessage").style.display = "block";
+      document.getElementById("finalMessage").innerHTML = "Ti amiamo sempre di piu&#39;!";
+    }
+
+    function reset() {
+      cleanScreen(); // Pulisci la schermata prima di ripristinare il messaggio iniziale
+      document.getElementById("messageBox").className = "pastel-pink"; 
+      document.getElementById("messageBox").innerHTML = "<p>Ci scusi?</p><div id='choices'><button class='button' onclick='showApology()'>No</button><button class='button' onclick='showLove()'>Si</button></div>";
+      document.getElementById("messageBox").style.display = "block"; // Mostra il messaggio
+      document.getElementById("finalMessage").style.display = "none"; // Nascondi il messaggio finale
+    }
+
+    function cleanScreen() {
+      document.getElementById("messageBox").style.display = "none"; // Nascondi il messageBox
+      document.getElementById("finalMessage").style.display = "none"; // Nascondi il messaggio finale
+    }
+  </script>
+
+</body>
+</html>
